@@ -1,0 +1,15 @@
+<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Geometric avatar">
+  <defs>
+    <linearGradient id="face" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#2563EB" offset="0"/>
+      <stop stop-color="#14B8A6" offset="1"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="320" rx="24" fill="#0F172A"/>
+  <circle cx="160" cy="120" r="60" fill="url(#face)"/>
+  <rect x="70" y="200" width="180" height="80" rx="40" fill="#111827" stroke="#1F2937"/>
+  <circle cx="140" cy="110" r="8" fill="#0B1020"/>
+  <circle cx="180" cy="110" r="8" fill="#0B1020"/>
+  <path d="M130 140 Q160 160 190 140" stroke="#0B1020" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>
+

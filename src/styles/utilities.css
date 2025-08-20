@@ -1,0 +1,7 @@
+*,*::before,*::after{box-sizing:border-box}
+html:focus-within{scroll-behavior:smooth}
+body{margin:0;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%;height:auto}
+button,input,textarea,select{font:inherit}
+:focus-visible{outline:2px solid #2563EB;outline-offset:2px}
+
