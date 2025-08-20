@@ -7,7 +7,7 @@ import { Blog } from '@/components/Blog';
 import { Contact } from '@/components/Contact';
 import { ScrollUrlUpdater } from '@/components/ScrollUrlUpdater';
 
-export default function ProjectsPage() {
+export default function SkillsPage() {
   return (
     <>
       <ScrollUrlUpdater />
@@ -21,4 +21,3 @@ export default function ProjectsPage() {
     </>
   );
 }
-
