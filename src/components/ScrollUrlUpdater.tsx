@@ -34,7 +34,8 @@ export function ScrollUrlUpdater() {
         if (mostVisible.intersectionRatio > 0.3) {
           const sectionId = mostVisible.target.id;
           const currentPath = window.location.pathname;
-          const newPath = `/${sectionId}`;
+          const capitalized = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+          const newPath = `/${capitalized}`;
           
           if (currentPath !== newPath) {
             // Update URL without page reload

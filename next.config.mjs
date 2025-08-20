@@ -9,8 +9,18 @@ const nextConfig = {
   },
   experimental: {
     typedRoutes: false
+  },
+  async rewrites() {
+    return [
+      { source: '/Home', destination: '/home' },
+      { source: '/Skills', destination: '/skills' },
+      { source: '/Projects', destination: '/projects' },
+      { source: '/Education', destination: '/education' },
+      { source: '/Experience', destination: '/experience' },
+      { source: '/Blog', destination: '/blog' },
+      { source: '/Contact', destination: '/contact' }
+    ];
   }
 };
 
 export default nextConfig;
-

@@ -25,11 +25,11 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Avatar */}
+          {/* Avatar / Photo */}
           <div className="relative mx-auto w-32 h-32 mb-8">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full p-1">
               <div className="relative w-full h-full rounded-full overflow-hidden">
-                <Image src="/avatar.svg" alt={`${SITE.name} avatar`} fill className="object-cover" />
+                <Image src={SITE.avatar} alt={`${SITE.name} photo`} fill className="object-cover" priority />
               </div>
             </div>
           </div>
@@ -43,23 +43,72 @@ export function Hero() {
           </p>
 
           {/* Social links */}
-          <div className="flex justify-center items-center gap-6 mb-8">
-            <Link href={SITE.social.github} className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform text-gray-700 dark:text-gray-300">
+          <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 mb-8">
+            <Link href={SITE.social.github} className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform text-gray-700 dark:text-gray-300" aria-label="GitHub">
               <GitHubIcon width={24} height={24} />
             </Link>
-            <Link href={SITE.social.linkedin} className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform text-gray-700 dark:text-gray-300">
+            <Link href={SITE.social.linkedin} className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform text-gray-700 dark:text-gray-300" aria-label="LinkedIn">
               <LinkedInIcon width={24} height={24} />
             </Link>
-            <Link href={SITE.social.twitter} className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform text-gray-700 dark:text-gray-300">
+            <Link href={SITE.social.twitter} className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform text-gray-700 dark:text-gray-300" aria-label="X / Twitter">
               <XIcon width={24} height={24} />
             </Link>
+            {SITE.social.leetcode && (
+              <Link
+                href={SITE.social.leetcode}
+                className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform text-gray-700 dark:text-gray-300"
+                aria-label="LeetCode"
+              >
+                {/* Light mode: black icon */}
+                <img
+                  src="https://cdn.simpleicons.org/leetcode/000000"
+                  alt="LeetCode"
+                  className="w-5 h-5 dark:hidden"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+                {/* Dark mode: white icon */}
+                <img
+                  src="https://cdn.simpleicons.org/leetcode/FFFFFF"
+                  alt="LeetCode"
+                  className="w-5 h-5 hidden dark:inline-block"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+              </Link>
+            )}
+            {SITE.social.gfg && (
+              <Link
+                href={SITE.social.gfg}
+                className="p-3 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform text-gray-700 dark:text-gray-300"
+                aria-label="GeeksforGeeks"
+              >
+                {/* Light mode: brand green */}
+                <img
+                  src="https://cdn.simpleicons.org/geeksforgeeks/0F9D58"
+                  alt="GeeksforGeeks"
+                  className="w-5 h-5 dark:hidden"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+                {/* Dark mode: white for contrast */}
+                <img
+                  src="https://cdn.simpleicons.org/geeksforgeeks/FFFFFF"
+                  alt="GeeksforGeeks"
+                  className="w-5 h-5 hidden dark:inline-block"
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                />
+              </Link>
+            )}
           </div>
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
-              href="/YOUR_NAME_Resume.pdf"
-              download
+              href={SITE.resume}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-teal-600 text-white font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
             >
               📄 Download Resume
