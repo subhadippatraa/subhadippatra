@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
+const repoName = 'subhadippatra';
 const nextConfig = {
+  basePath: `/${repoName}`,
+  assetPrefix: `/${repoName}/`,
   output: 'export',
   trailingSlash: true,
   skipTrailingSlashRedirect: true,

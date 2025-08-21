@@ -22,8 +22,8 @@ export function Nav() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Only do scroll detection on home page
-      if (pathname === '/') {
+      // Only do scroll detection on home page. Detect home by DOM presence to be basePath-safe.
+      if (typeof window !== 'undefined' && document.getElementById('home')) {
         const sections = ['home', 'skills', 'projects', 'education', 'experience', 'blog', 'contact'];
         const headerOffset = 80; // header height
         
@@ -72,20 +72,24 @@ export function Nav() {
 
   // Handle initial page load for individual section pages
   useEffect(() => {
-    const pathToSection: Record<string, string> = {
-      '/skills': 'skills',
-      '/projects': 'projects',
-      '/education': 'education',
-      '/experience': 'experience',
-      '/contact': 'contact'
-    };
-    
-    if (pathname.startsWith('/blog')) {
-      setActiveSection('blog');
-    } else if (pathToSection[pathname]) {
-      setActiveSection(pathToSection[pathname]);
-    } else if (pathname === '/') {
-      setActiveSection('home');
+    // Normalize path independent of basePath by using window.location
+    if (typeof window !== 'undefined') {
+      const p = window.location.pathname;
+      // Blog section (covers /blog and /blog/*)
+      if (p.includes('/blog')) {
+        setActiveSection('blog');
+        return;
+      }
+      // Match known section pages at the end of the path
+      const match = p.match(/\/(skills|projects|education|experience|contact)\/?$/);
+      if (match && match[1]) {
+        setActiveSection(match[1]);
+        return;
+      }
+      // Home page when the main sections exist on the DOM
+      if (document.getElementById('home')) {
+        setActiveSection('home');
+      }
     }
   }, [pathname]);
 
