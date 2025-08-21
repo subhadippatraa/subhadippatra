@@ -7,30 +7,33 @@ import { GitHubIcon } from './icons/Social';
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce platform built with Next.js, featuring real-time inventory, payment processing, and admin dashboard.',
-    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop',
-    tags: ['Next.js', 'TypeScript', 'Stripe', 'PostgreSQL'],
-    github: 'https://github.com/your-handle/ecommerce-platform',
-    demo: 'https://demo-ecommerce.vercel.app',
+    title: 'HireSense',
+    description:
+      'Full‑stack app that ingests resumes, extracts key skills via OpenAI embeddings, and computes match scores against job descriptions. Real‑time filters and ranking with WebSockets.',
+    image: 'https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1600&auto=format&fit=crop',
+    tags: ['Java', 'Spring Boot', 'React', 'MySQL', 'OpenAI'],
+    github: 'https://github.com/subhadippatraa',
+    demo: '#',
     featured: true
   },
   {
-    title: 'Task Management App',
-    description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.',
-    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1600&auto=format&fit=crop',
-    tags: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
-    github: 'https://github.com/your-handle/task-manager',
-    demo: 'https://task-manager-demo.vercel.app',
+    title: 'FabricMind: AI‑Driven Retail',
+    description:
+      'LLM‑powered retail assistant using LangChain to answer natural language queries for inventory, sales, and recommendations. Dynamic SQL generation over MySQL knowledge base.',
+    image: 'https://images.unsplash.com/photo-1557825835-70d97c4aa567?q=80&w=1600&auto=format&fit=crop',
+    tags: ['LangChain', 'GenAI', 'SQL', 'MySQL'],
+    github: 'https://github.com/subhadippatraa',
+    demo: '#',
     featured: false
   },
   {
-    title: 'Portfolio Website',
-    description: 'A modern, responsive portfolio website built with Next.js, featuring dark mode, animations, and optimal performance.',
-    image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600&auto=format&fit=crop',
-    tags: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'TypeScript'],
-    github: 'https://github.com/your-handle/portfolio',
-    demo: 'https://your-portfolio.vercel.app',
+    title: 'Project Nimbus (Demo)',
+    description:
+      'A placeholder project showcasing the card design. Replace this later with a real project. Includes feature highlights and tech tags.',
+    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop',
+    tags: ['Tailwind','Java', 'Spring Boot', 'Demo'],
+    github: 'https://github.com/subhadippatraa',
+    demo: '#',
     featured: false
   }
 ];
@@ -150,7 +153,7 @@ export function Projects() {
           className="text-center mt-12"
         >
           <Link
-            href="https://github.com/your-handle"
+            href="https://github.com/subhadippatraa"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"

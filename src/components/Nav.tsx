@@ -22,41 +22,33 @@ export function Nav() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Only do scroll detection on home page
       if (pathname === '/') {
-        // Home page scroll detection
         const sections = ['home', 'skills', 'projects', 'education', 'experience', 'blog', 'contact'];
-        const headerOffset = 100; // approx header height
-        const scrollPosition = window.scrollY + headerOffset;
-
-        // Prefer bounding rect for accuracy around section edges
-        let found = false;
-        for (let i = sections.length - 1; i >= 0; i--) {
-          const id = sections[i];
-          const section = document.getElementById(id);
-          if (!section) continue;
-          const rect = section.getBoundingClientRect();
-          const top = rect.top + window.scrollY;
-          const bottom = top + section.offsetHeight;
-          if (top <= scrollPosition && bottom > scrollPosition) {
-            setActiveSection(id);
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          // Fallback: last section above current position
-          for (let i = sections.length - 1; i >= 0; i--) {
-            const id = sections[i];
-            const section = document.getElementById(id);
-            if (section && section.offsetTop <= scrollPosition) {
-              setActiveSection(id);
+        const headerOffset = 80; // header height
+        
+        let currentSection = 'home';
+        
+        // Find the section that's currently in view
+        for (const sectionId of sections) {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            // Check if section is in viewport (accounting for header)
+            if (rect.top <= headerOffset && rect.bottom > headerOffset) {
+              currentSection = sectionId;
               break;
+            }
+            // If we're past this section, it might be the active one
+            if (rect.top <= headerOffset) {
+              currentSection = sectionId;
             }
           }
         }
-      } else if (pathname.startsWith('/blog')) {
-        // Blog pages - always highlight blog
-        setActiveSection('blog');
+        
+        if (currentSection !== activeSection) {
+          setActiveSection(currentSection);
+        }
       }
     };
 
@@ -76,6 +68,25 @@ export function Nav() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('hashchange', handleHashChange);
     };
+  }, [pathname]);
+
+  // Handle initial page load for individual section pages
+  useEffect(() => {
+    const pathToSection: Record<string, string> = {
+      '/skills': 'skills',
+      '/projects': 'projects',
+      '/education': 'education',
+      '/experience': 'experience',
+      '/contact': 'contact'
+    };
+    
+    if (pathname.startsWith('/blog')) {
+      setActiveSection('blog');
+    } else if (pathToSection[pathname]) {
+      setActiveSection(pathToSection[pathname]);
+    } else if (pathname === '/') {
+      setActiveSection('home');
+    }
   }, [pathname]);
 
   const handleNavClick = (href: string) => {
@@ -102,7 +113,7 @@ export function Nav() {
   return (
     <header className="sticky top-0 z-50 backdrop-blur bg-white/70 dark:bg-gray-900/60 border-b border-gray-200 dark:border-gray-800">
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="font-extrabold tracking-tight">
+        <Link href="/" className="font-extrabold tracking-tight text-gray-900 dark:text-white">
           Subhadip<span className="text-primary">.</span>
         </Link>
         <nav className="hidden md:flex items-center gap-1" aria-label="Primary">
@@ -134,7 +145,7 @@ export function Nav() {
           </div>
         </nav>
         <button
-          className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 dark:border-gray-700"
+          className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200"
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
@@ -143,14 +154,16 @@ export function Nav() {
         </button>
       </div>
       {open && (
-        <div id="mobile-nav" className="md:hidden border-t border-gray-200 dark:border-gray-800">
+        <div id="mobile-nav" className="md:hidden block border-t border-gray-200 dark:border-gray-800">
           <div className="mx-auto max-w-6xl px-4 py-3 grid gap-1">
             {links.map((l) => (
               l.href.startsWith('#') ? (
                 <button
                   key={l.href}
                   onClick={() => handleNavClick(l.href)}
-                  className="px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-left"
+                  className={`px-3 py-2 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-left ${
+                    isActive(l.href) ? 'text-primary font-semibold' : 'text-gray-700 dark:text-gray-300'
+                  }`}
                 >
                   {l.label}
                 </button>
@@ -158,7 +171,9 @@ export function Nav() {
                   <Link
                     key={l.href}
                     href={l.href}
-                    className="px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 text-left"
+                    className={`px-3 py-2 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-left ${
+                      isActive(l.href) ? 'text-primary font-semibold' : 'text-gray-700 dark:text-gray-300'
+                    }`}
                   >
                     {l.label}
                   </Link>

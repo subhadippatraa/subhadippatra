@@ -30,13 +30,21 @@ export function ContactForm() {
       return;
     }
 
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(parsed.data)
-    });
+    try {
+      // Use Formspree for static site contact forms
+      const res = await fetch('https://formspree.io/f/xldlyvyp', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(parsed.data)
+      });
 
-    setStatus(res.ok ? 'success' : 'error');
+      setStatus(res.ok ? 'success' : 'error');
+    } catch (error) {
+      setStatus('error');
+    }
   }
 
   return (

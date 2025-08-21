@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 type Proficiency = 'Expert' | 'Advanced' | 'Intermediate';
 
@@ -18,51 +19,51 @@ type SkillCategory = {
 
 const skillCategories: SkillCategory[] = [
   {
-    name: 'Frontend Development',
-    description: 'Building responsive and interactive user interfaces',
+    name: 'Languages',
+    description: 'Core programming languages and query languages',
     skills: [
-      { name: 'React', proficiency: 'Expert', level: 92 },
-      { name: 'Next.js', proficiency: 'Advanced', level: 86 },
+      { name: 'Java', proficiency: 'Advanced', level: 85 },
       { name: 'TypeScript', proficiency: 'Advanced', level: 88 },
-      { name: 'Tailwind CSS', proficiency: 'Expert', level: 90 },
-      { name: 'HTML/CSS', proficiency: 'Expert', level: 95 },
-      { name: 'JavaScript ES6+', proficiency: 'Expert', level: 93 }
-    ]
-  },
-  {
-    name: 'Backend Development',
-    description: 'Server-side architecture and database management',
-    skills: [
-      { name: 'Node.js', proficiency: 'Advanced', level: 85 },
-      { name: 'Express.js', proficiency: 'Advanced', level: 82 },
+      { name: 'JavaScript', proficiency: 'Advanced', level: 90 },
       { name: 'Python', proficiency: 'Intermediate', level: 70 },
-      { name: 'PostgreSQL', proficiency: 'Intermediate', level: 68 },
-      { name: 'MongoDB', proficiency: 'Intermediate', level: 72 },
-      { name: 'REST APIs', proficiency: 'Advanced', level: 84 }
+      { name: 'SQL', proficiency: 'Advanced', level: 82 },
+      { name: 'C', proficiency: 'Intermediate', level: 65 },
+      { name: 'C #', proficiency: 'Intermediate', level: 75 }
     ]
   },
   {
-    name: 'Development Tools',
-    description: 'Modern development workflow and deployment',
+    name: 'Frameworks & Libraries',
+    description: 'Frontend and backend frameworks used in projects',
+    skills: [
+      { name: 'React', proficiency: 'Advanced', level: 90 },
+      { name: '.Net Core', proficiency: 'Advanced', level: 85 },
+      { name: 'Tailwind CSS', proficiency: 'Advanced', level: 88 },
+      { name: 'Framer Motion', proficiency: 'Advanced', level: 80 },
+      { name: 'LangChain', proficiency: 'Intermediate', level: 70 },
+      { name: 'Spring Boot', proficiency: 'Intermediate', level: 70 },
+      { name: 'Express.js', proficiency: 'Advanced', level: 80 }
+    ]
+  },
+  {
+    name: 'Backend & Databases',
+    description: 'Server-side development and data storage',
+    skills: [
+      { name: 'Node.js', proficiency: 'Advanced', level: 82 },
+      { name: 'REST APIs', proficiency: 'Advanced', level: 84 },
+      { name: 'MySQL', proficiency: 'Advanced', level: 80 },
+      { name: 'PostgreSQL', proficiency: 'Intermediate', level: 68 },
+      { name: 'MongoDB', proficiency: 'Intermediate', level: 72 }
+    ]
+  },
+  {
+    name: 'Tools & Platforms',
+    description: 'Productivity, collaboration, and deployment tools',
     skills: [
       { name: 'Git & GitHub', proficiency: 'Expert', level: 92 },
       { name: 'Docker', proficiency: 'Intermediate', level: 65 },
-      { name: 'Vercel/Netlify', proficiency: 'Advanced', level: 82 },
-      { name: 'Jest/Testing', proficiency: 'Advanced', level: 80 },
-      { name: 'Webpack/Vite', proficiency: 'Intermediate', level: 68 },
-      { name: 'CI/CD', proficiency: 'Intermediate', level: 72 }
-    ]
-  },
-  {
-    name: 'Design & Collaboration',
-    description: 'User experience and team collaboration skills',
-    skills: [
-      { name: 'UI/UX Design', proficiency: 'Advanced', level: 82 },
-      { name: 'Figma', proficiency: 'Intermediate', level: 70 },
-      { name: 'Agile/Scrum', proficiency: 'Advanced', level: 80 },
-      { name: 'Team Leadership', proficiency: 'Advanced', level: 78 },
-      { name: 'Code Review', proficiency: 'Expert', level: 90 },
-      { name: 'Technical Writing', proficiency: 'Advanced', level: 79 }
+      { name: 'Jira', proficiency: 'Intermediate', level: 70 },
+      { name: 'Postman', proficiency: 'Advanced', level: 80 },
+      { name: 'Vercel/Netlify', proficiency: 'Advanced', level: 82 }
     ]
   }
 ];
@@ -82,54 +83,86 @@ const getProficiencyColor = (proficiency: string) => {
 
 // Map of skill names to Simple Icons slug for logo rendering
 const skillIconMap: Record<string, string> = {
+  'Java': 'openjdk',
+  'TypeScript': 'typescript',
+  'JavaScript': 'javascript',
+  'Python': 'python',
+  'SQL': 'mysql',
+  'C': 'c',
+  'C#': 'csharp',
   'React': 'react',
   'Next.js': 'nextdotjs',
-  'TypeScript': 'typescript',
   'Tailwind CSS': 'tailwindcss',
-  'HTML/CSS': 'html5',
-  'JavaScript ES6+': 'javascript',
-  'Node.js': 'nodedotjs',
+  'Framer Motion': 'framer',
+  '.Net Core': 'dotnet',
+  'Spring Boot': 'springboot',
   'Express.js': 'express',
-  'Python': 'python',
+  'Node.js': 'nodedotjs',
+  'REST APIs': 'swagger',
+  'MySQL': 'mysql',
   'PostgreSQL': 'postgresql',
   'MongoDB': 'mongodb',
-  'REST APIs': 'swagger',
   'Git & GitHub': 'github',
   'Docker': 'docker',
-  'Vercel/Netlify': 'vercel',
-  'Jest/Testing': 'jest',
-  'Webpack/Vite': 'webpack',
-  'CI/CD': 'githubactions',
-  'UI/UX Design': 'figma',
-  'Figma': 'figma',
-  'Agile/Scrum': 'jira',
-  'Team Leadership': 'google',
-  'Code Review': 'git',
-  'Technical Writing': 'readthedocs'
+  'Jira': 'jira',
+  'Postman': 'postman',
+  'Vercel/Netlify': 'vercel'
 };
 
 // Logo circle: tries to show real logo via Simple Icons; falls back to initials
 function SkillIcon({ name }: { name: string }) {
+  const [imgError, setImgError] = useState(false);
+  const [slugIndex, setSlugIndex] = useState(0);
   const initials = name
     .split(/\s|\+/)
     .map((w) => w[0])
     .join('')
     .slice(0, 3)
     .toUpperCase();
-  const slug = skillIconMap[name];
+  const baseSlug = skillIconMap[name];
+  const slugCandidates = (() => {
+    switch (name) {
+      case 'C#':
+        return ['csharp', 'dotnet'];
+      default:
+        return baseSlug ? [baseSlug] : [];
+    }
+  })();
+  const activeSlug = slugCandidates[slugIndex];
+  const showIcon = !!activeSlug && !imgError;
+  const handleImgError = () => {
+    if (slugIndex < slugCandidates.length - 1) {
+      setSlugIndex((i) => i + 1);
+    } else {
+      setImgError(true);
+    }
+  };
   return (
     <div className="relative w-10 h-10 rounded-full overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/70 via-teal-500/70 to-purple-500/70 dark:from-blue-500/40 dark:via-teal-500/40 dark:to-purple-500/40" />
       <div className="absolute inset-0 backdrop-blur-sm" />
       <div className="relative z-10 w-full h-full flex items-center justify-center">
-        {slug ? (
-          <img
-            src={`https://cdn.simpleicons.org/${slug}/ffffff`}
-            alt={`${name} logo`}
-            className="w-5 h-5 opacity-90"
-            loading="lazy"
-            referrerPolicy="no-referrer"
-          />
+        {showIcon ? (
+          <>
+            {/* Light mode: dark icon for contrast */}
+            <img
+              src={`https://cdn.simpleicons.org/${activeSlug}/0f172a`}
+              alt={`${name} logo`}
+              className="w-5 h-5 opacity-90 dark:hidden"
+              loading="lazy"
+              referrerPolicy="no-referrer"
+              onError={handleImgError}
+            />
+            {/* Dark mode: white icon */}
+            <img
+              src={`https://cdn.simpleicons.org/${activeSlug}/ffffff`}
+              alt={`${name} logo`}
+              className="w-5 h-5 opacity-90 hidden dark:block"
+              loading="lazy"
+              referrerPolicy="no-referrer"
+              onError={handleImgError}
+            />
+          </>
         ) : (
           <span className="text-white text-xs font-bold tracking-wide">{initials}</span>
         )}
