@@ -4,8 +4,6 @@ const nextConfig = {
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
   distDir: 'out',
-  basePath: process.env.NODE_ENV === 'production' ? '/Portfolio-Website' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/Portfolio-Website' : '',
   reactStrictMode: true,
   images: {
     unoptimized: true,
