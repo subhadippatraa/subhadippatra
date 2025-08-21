@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import teyaLogo from '@/../public/teyahealth-logo.png';
 
 const experience = [
   {
@@ -17,7 +18,7 @@ const experience = [
       'Developed end-to-end deployment workflows with automated configuration for low-downtime releases.'
     ],
     icon: '💼',
-    logo: '/teyahealth-logo.png',
+    logo: teyaLogo,
     website: 'https://www.teyahealth.com/Home'
   }
 ];
