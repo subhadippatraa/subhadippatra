@@ -4,6 +4,8 @@ const nextConfig = {
   trailingSlash: true,
   skipTrailingSlashRedirect: true,
   distDir: 'out',
+  basePath: process.env.NODE_ENV === 'production' ? '/Portfolio-Website' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/Portfolio-Website' : '',
   reactStrictMode: true,
   images: {
     unoptimized: true,
@@ -14,17 +16,6 @@ const nextConfig = {
   },
   experimental: {
     typedRoutes: false
-  },
-  async rewrites() {
-    return [
-      { source: '/Home', destination: '/home' },
-      { source: '/Skills', destination: '/skills' },
-      { source: '/Projects', destination: '/projects' },
-      { source: '/Education', destination: '/education' },
-      { source: '/Experience', destination: '/experience' },
-      { source: '/Blog', destination: '/blog' },
-      { source: '/Contact', destination: '/contact' }
-    ];
   }
 };
 
