@@ -137,7 +137,7 @@ export function Contact() {
                 </div>
               </div>
               <a
-                href={SITE.resume}
+                href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}${SITE.resume}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-teal-600 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-semibold"
