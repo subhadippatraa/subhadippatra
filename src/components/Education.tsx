@@ -4,28 +4,20 @@ import { motion } from 'framer-motion';
 
 const education = [
   {
-    degree: 'Master of Computer Science',
-    institution: 'Stanford University',
-    period: '2020 - 2022',
-    description: 'Specialized in Artificial Intelligence and Machine Learning. Graduated with honors.',
-    gpa: '3.9/4.0',
+    degree: "Master's of Computer Application (MCA)",
+    institution: 'University of Hyderabad',
+    period: 'Aug 2023 – May 2025',
+    description: 'Coursework and projects across systems, software engineering, and applied AI/ML. Active in sports and campus activities.',
+    grade: 'A+',
     icon: '🎓'
   },
   {
-    degree: 'Bachelor of Computer Science',
-    institution: 'University of California, Berkeley',
-    period: '2016 - 2020',
-    description: 'Major in Computer Science with minor in Mathematics. Dean\'s List recipient.',
-    gpa: '3.8/4.0',
+    degree: "Bachelor's of Computer Application (BCA)",
+    institution: 'Vidyasagar University',
+    period: 'Aug 2019 – May 2022',
+    description: 'Foundational CS subjects including programming, databases, OS, and networks. Participated in extracurriculars and volunteering.',
+    grade: 'A+',
     icon: '📚'
-  },
-  {
-    degree: 'High School Diploma',
-    institution: 'Tech High School',
-    period: '2012 - 2016',
-    description: 'Valedictorian. President of Computer Science Club. National Merit Scholar.',
-    gpa: '4.0/4.0',
-    icon: '🏫'
   }
 ];
 
@@ -96,10 +88,10 @@ export function Education() {
                   
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      GPA:
+                      Grade:
                     </span>
                     <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-sm font-semibold">
-                      {item.gpa}
+                      {item.grade}
                     </span>
                   </div>
                 </div>

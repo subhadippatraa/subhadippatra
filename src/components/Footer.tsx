@@ -4,9 +4,9 @@ import { GitHubIcon, LinkedInIcon, XIcon, InstagramIcon } from './icons/Social';
 
 export function Footer() {
   return (
-    <footer className="border-t border-gray-200 dark:border-gray-800 mt-20">
-      <div className="mx-auto max-w-6xl px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600 dark:text-gray-400">
-        <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
+    <footer className="mt-12 pb-2">
+      <div className="mx-auto max-w-6xl px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-800 dark:text-gray-400 text-center min-h-[80px]">
+        <p className="leading-relaxed">© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
         <nav className="flex items-center gap-4" aria-label="Social">
           <Link href={SITE.social.github} aria-label="GitHub" className="hover:text-primary">
             <GitHubIcon width={20} height={20} />

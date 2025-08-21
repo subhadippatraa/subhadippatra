@@ -1,43 +1,24 @@
-"use client";
+  "use client";
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const experience = [
   {
-    title: 'Senior Software Engineer',
-    company: 'TechCorp Inc.',
-    period: '2022 - Present',
-    description: 'Leading development of scalable web applications. Mentoring junior developers and implementing best practices.',
+    title: 'Full-Stack Developer Intern',
+    company: 'TeyaHealth',
+    period: 'Jan 2025 – Present',
+    description:
+      'Building an internal Data Ingestion platform in C# and ASP.NET Core with role-based access control and optimized bulk export APIs.',
     achievements: [
-      'Led a team of 5 developers to deliver a major e-commerce platform',
-      'Improved application performance by 40% through optimization',
-      'Implemented CI/CD pipeline reducing deployment time by 60%'
+      'Reduced large dataset export times from minutes to under 10 seconds, increasing overall throughput by ~35%.',
+      'Implemented detailed audit logging for secure documentation using Serilog and Elasticsearch (view/update/lock/delete).',
+      'Developed end-to-end deployment workflows with automated configuration for low-downtime releases.'
     ],
-    icon: '💼'
-  },
-  {
-    title: 'Full Stack Developer',
-    company: 'StartupXYZ',
-    period: '2020 - 2022',
-    description: 'Built and maintained multiple web applications using modern technologies. Collaborated with cross-functional teams.',
-    achievements: [
-      'Developed 3 full-stack applications from concept to deployment',
-      'Reduced bug reports by 50% through improved testing practices',
-      'Mentored 2 junior developers and conducted code reviews'
-    ],
-    icon: '🚀'
-  },
-  {
-    title: 'Software Engineer Intern',
-    company: 'BigTech Company',
-    period: '2019 - 2020',
-    description: 'Worked on internal tools and applications. Gained experience with large-scale systems and team collaboration.',
-    achievements: [
-      'Built internal dashboard used by 100+ employees',
-      'Contributed to open-source projects used by the company',
-      'Received outstanding performance review'
-    ],
-    icon: '🔧'
+    icon: '💼',
+    logo: '/teyahealth-logo.png',
+    website: 'https://www.teyahealth.com/Home'
   }
 ];
 
@@ -98,9 +79,33 @@ export function WorkExperience() {
                     </span>
                   </div>
                   
-                  <h4 className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2">
-                    {item.company}
-                  </h4>
+                  <div className="flex items-center gap-3 mb-2">
+                    {/** Company logo */}
+                    {/** optional chaining to handle future entries without logo */}
+                    {item.logo && (
+                      <Image
+                        src={item.logo}
+                        alt={`${item.company} logo`}
+                        width={28}
+                        height={28}
+                        className="rounded"
+                      />
+                    )}
+                    <h4 className="text-lg font-semibold text-blue-600 dark:text-blue-400">
+                      {item.website ? (
+                        <Link
+                          href={item.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          {item.company}
+                        </Link>
+                      ) : (
+                        item.company
+                      )}
+                    </h4>
+                  </div>
                   
                   <p className="text-gray-600 dark:text-gray-300 mb-4">
                     {item.description}
