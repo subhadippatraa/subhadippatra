@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { z } from 'zod';
 
 const Schema = z.object({
@@ -10,6 +10,7 @@ const Schema = z.object({
 });
 
 export function ContactForm() {
+  const formRef = useRef<HTMLFormElement | null>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -41,14 +42,21 @@ export function ContactForm() {
         body: JSON.stringify(parsed.data)
       });
 
-      setStatus(res.ok ? 'success' : 'error');
+      if (res.ok) {
+        setStatus('success');
+        // Clear validation errors and reset the form fields
+        setErrors({});
+        formRef.current?.reset();
+      } else {
+        setStatus('error');
+      }
     } catch (error) {
       setStatus('error');
     }
   }
 
   return (
-    <form action={onSubmit} className="grid gap-4 max-w-xl">
+    <form ref={formRef} action={onSubmit} className="grid gap-4 max-w-xl">
       <div>
         <label htmlFor="name" className="block text-sm text-gray-600 dark:text-gray-300 mb-1 font-medium">Name</label>
         <input id="name" name="name" className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white/70 dark:bg-gray-800/60 px-4 py-3" />
