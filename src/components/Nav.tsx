@@ -48,6 +48,14 @@ export function Nav() {
         
         if (currentSection !== activeSection) {
           setActiveSection(currentSection);
+          // Update URL hash to reflect current section without page navigation
+          if (typeof window !== 'undefined') {
+            const newHash = `#${currentSection}`;
+            const base = window.location.pathname;
+            if (window.location.hash !== newHash) {
+              window.history.replaceState(null, '', `${base}${newHash}`);
+            }
+          }
         }
       }
     };
@@ -101,6 +109,11 @@ export function Nav() {
         // Immediately mark active for better UX
         const id = href.substring(1);
         setActiveSection(id);
+        // Reflect in URL without triggering navigation
+        if (typeof window !== 'undefined') {
+          const newUrl = `${window.location.pathname}${href}`;
+          window.history.replaceState(null, '', newUrl);
+        }
       }
     }
     setOpen(false);

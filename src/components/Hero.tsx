@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { SITE } from '@/config/site';
 import { GitHubIcon, LinkedInIcon, XIcon } from './icons/Social';
+import profileImg from '@/../public/profile.jpg';
 
 export function Hero() {
   return (
@@ -29,7 +30,7 @@ export function Hero() {
           <div className="relative mx-auto w-32 h-32 mb-8">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full p-1">
               <div className="relative w-full h-full rounded-full overflow-hidden">
-                <Image src={SITE.avatar} alt={`${SITE.name} photo`} fill className="object-cover" priority />
+                <Image src={profileImg} alt={`${SITE.name} photo`} fill className="object-cover" priority />
               </div>
             </div>
           </div>
@@ -105,14 +106,14 @@ export function Hero() {
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
+            <Link
               href={SITE.resume}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-teal-600 text-white font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
             >
               📄 Download Resume
-            </a>
+            </Link>
             <a
               href="#education"
               className="inline-flex items-center px-8 py-4 rounded-full border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold text-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
