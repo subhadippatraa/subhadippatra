@@ -7,34 +7,24 @@ import { GitHubIcon } from './icons/Social';
 
 const projects = [
   {
-    title: 'HireSense',
+    title: 'PayFlow -- Payment Processing Service',
     description:
-      'Full‑stack app that ingests resumes, extracts key skills via OpenAI embeddings, and computes match scores against job descriptions. Real‑time filters and ranking with WebSockets.',
+      'Engineered a Stripe-inspired payment processing API supporting wallet top-ups, peer-to-peer transfers, and merchant payouts with idempotent transaction handling. Implemented double-entry bookkeeping with SQL Server transactions and optimistic concurrency control. Published transaction events to RabbitMQ for async processing.',
     image: 'https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1600&auto=format&fit=crop',
-    tags: ['Java', 'Spring Boot', 'React', 'MySQL', 'OpenAI'],
-    github: 'https://github.com/subhadippatraa',
+    tags: ['C#', '.NET Core', 'SQL Server', 'RabbitMQ', 'Docker'],
+    github: 'https://github.com/subhadippatraa/PayFlow',
     demo: '#',
     featured: true
   },
   {
-    title: 'FabricMind: AI‑Driven Retail',
+    title: 'SnapLink -- URL Shortener & Analytics',
     description:
-      'LLM‑powered retail assistant using LangChain to answer natural language queries for inventory, sales, and recommendations. Dynamic SQL generation over MySQL knowledge base.',
+      'Built a high-throughput URL shortening service generating unique short codes via Base62 encoding, handling 1,000+ req/s with Redis as a write-through cache layer. Streamed click events to Apache Kafka for real-time analytics. Implemented token-bucket rate limiting, custom link expiration, and JWT-based auth.',
     image: 'https://images.unsplash.com/photo-1557825835-70d97c4aa567?q=80&w=1600&auto=format&fit=crop',
-    tags: ['LangChain', 'GenAI', 'SQL', 'MySQL'],
-    github: 'https://github.com/subhadippatraa',
+    tags: ['React', 'Java', 'Spring Boot', 'Redis', 'PostgreSQL', 'Kafka'],
+    github: 'https://github.com/subhadippatraa/SnapLink',
     demo: '#',
-    featured: false
-  },
-  {
-    title: 'Project Nimbus (Demo)',
-    description:
-      'A placeholder project showcasing the card design. Replace this later with a real project. Includes feature highlights and tech tags.',
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop',
-    tags: ['Tailwind','Java', 'Spring Boot', 'Demo'],
-    github: 'https://github.com/subhadippatraa',
-    demo: '#',
-    featured: false
+    featured: true
   }
 ];
 
