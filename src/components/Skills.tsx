@@ -175,57 +175,16 @@ function SkillIcon({ name }: { name: string }) {
   );
 }
 
-// Radial progress ring with neon glow
-function RadialProgress({ value }: { value: number }) {
-  const size = 44;
-  const stroke = 6;
-  const radius = (size - stroke) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const clamped = Math.max(0, Math.min(100, value));
-  const dash = (clamped / 100) * circumference;
-
+function ProgressBar({ value, name }: { value: number; name: string }) {
   return (
-    <svg width={size} height={size} className="drop-shadow-[0_0_6px_rgba(59,130,246,0.35)]">
-      <defs>
-        <linearGradient id="skillGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#3B82F6" />
-          <stop offset="100%" stopColor="#14B8A6" />
-        </linearGradient>
-      </defs>
-      <circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        stroke="currentColor"
-        className="text-white/30 dark:text-white/20"
-        strokeWidth={stroke}
-        fill="none"
-      />
-      <motion.circle
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        stroke="url(#skillGrad)"
-        strokeWidth={stroke}
-        fill="none"
-        strokeLinecap="round"
-        strokeDasharray={`${circumference} ${circumference}`}
-        strokeDashoffset={circumference - dash}
-        initial={{ strokeDashoffset: circumference }}
-        whileInView={{ strokeDashoffset: circumference - dash }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.1, ease: 'easeOut' }}
-      />
-      <text
-        x="50%"
-        y="50%"
-        dominantBaseline="central"
-        textAnchor="middle"
-        className="fill-gray-800 dark:fill-gray-200 text-[10px] font-semibold"
+    <div className="w-full bg-gray-200/50 dark:bg-gray-700/50 rounded-full h-1.5 mt-3 overflow-hidden backdrop-blur-sm shadow-inner group-hover/item:bg-gray-300/50 dark:group-hover/item:bg-gray-600/50 transition-colors duration-300">
+      <div 
+        className="h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-teal-400 relative"
+        style={{ width: `${value}%` }}
       >
-        {clamped}%
-      </text>
-    </svg>
+        <div className="absolute inset-0 w-full h-full bg-white/20 animate-pulse mix-blend-overlay"></div>
+      </div>
+    </div>
   );
 }
 
@@ -256,65 +215,57 @@ export function Skills() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8 relative z-10">
           {skillCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+              viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+              transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
               className="relative group"
             >
-              {/* Glass card */}
-              <div className="bg-white/20 dark:bg-gray-900/20 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-gray-700/30 hover:border-white/30 dark:hover:border-gray-600/50 transition-all duration-200 hover:shadow-md hover:shadow-blue-500/5 dark:hover:shadow-blue-400/5">
-                <div className="mb-6">
-                  <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">{category.name}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+              {/* Glass card background */}
+              <div className="h-full bg-white/40 dark:bg-gray-900/40 backdrop-blur-2xl rounded-3xl p-8 border border-white/40 dark:border-white/10 hover:border-white/60 dark:hover:border-white/20 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.2)]">
+                
+                {/* Decorative header blur */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-teal-400/20 blur-2xl rounded-full pointer-events-none transition-opacity opacity-50 group-hover:opacity-100" />
+                
+                <div className="mb-8 relative z-10">
+                  <h3 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white tracking-tight">{category.name}</h3>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                     {category.description}
                   </p>
                 </div>
                 
-                <div className="grid gap-3">
-                  {category.skills.map((skill, skillIndex) => (
-                    <motion.div
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
+                  {category.skills.map((skill) => (
+                    <div
                       key={skill.name}
-                      initial={{ opacity: 0, x: -16 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.35, delay: skillIndex * 0.05 }}
-                      className="group/item flex items-center justify-between py-3 px-4 bg-white/30 dark:bg-gray-800/30 backdrop-blur-sm rounded-xl border border-white/20 dark:border-gray-700/20 hover:bg-white/35 dark:hover:bg-gray-800/35 hover:shadow-sm transition-all duration-200"
+                      className="group/item flex flex-col justify-center p-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md rounded-2xl border border-white/50 dark:border-gray-700/50 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                     >
-                      <div className="flex items-center gap-3">
-                        <motion.div
-                          initial={{ scale: 0.995, rotate: 0 }}
-                          whileHover={{ scale: 1.008, rotate: 0.15 }}
-                          transition={{ type: 'spring', stiffness: 240, damping: 24 }}
-                          className="shrink-0"
-                        >
+                      <div className="flex items-center gap-4">
+                        <div className="shrink-0 transition-transform duration-300 group-hover/item:scale-110 group-hover/item:rotate-3 shadow-sm rounded-full">
                           <SkillIcon name={skill.name} />
-                        </motion.div>
-                        <div className="flex flex-col">
-                          <span className="font-semibold text-gray-900 dark:text-gray-100 tracking-tight">
-                            {skill.name}
-                          </span>
-                          <span className={`mt-1 w-fit px-2 py-0.5 rounded-full text-[10px] font-medium ${getProficiencyColor(skill.proficiency)} group-hover/item:brightness-[1.02] transition` }>
+                        </div>
+                        <div className="flex flex-col flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="font-bold text-gray-900 dark:text-gray-100 truncate text-sm">
+                              {skill.name}
+                            </span>
+                          </div>
+                          <span className={`text-[10px] uppercase tracking-wider font-bold mt-0.5 w-max ${getProficiencyColor(skill.proficiency).replace('bg-', 'text-').replace('text-', '')} opacity-80 group-hover/item:opacity-100 transition-opacity`}>
                             {skill.proficiency}
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <div className="transition-all duration-200 group-hover/item:drop-shadow-[0_0_2px_rgba(20,184,166,0.18)]">
-                          <RadialProgress value={skill.level} />
-                        </div>
-                      </div>
-                    </motion.div>
+                      
+                      {/* Subdued Progress Bar replacing layout-heavy Radial SVG */}
+                      <ProgressBar value={skill.level} name={skill.name} />
+                    </div>
                   ))}
                 </div>
               </div>
-              
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/5 to-teal-500/5 opacity-0 group-hover:opacity-60 transition-opacity duration-400 pointer-events-none blur-lg" />
             </motion.div>
           ))}
         </div>
