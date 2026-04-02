@@ -25,6 +25,16 @@ const projects = [
     github: 'https://github.com/subhadippatraa/SnapLink',
     demo: '#',
     featured: true
+  },
+  {
+    title: 'BitWise -- Code Learning Platform',
+    description:
+      'Engineered a comprehensive code learning platform featuring a DSA tracker, coding contests, and curated learning roadmaps. Implemented secure user authentication with Supabase Auth and a fully responsive themeable UI with React and Tailwind CSS.',
+    image: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?q=80&w=1600&auto=format&fit=crop',
+    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL'],
+    github: 'https://github.com/subhadippatraa/BitWise',
+    demo: '#',
+    featured: true
   }
 ];
 

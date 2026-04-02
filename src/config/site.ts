@@ -8,7 +8,7 @@ export const SITE = {
   primaryColor: '#2563EB',
   email: 'subhadipuohyd@gmail.com',
   avatar: '/profile.jpg',
-  resume: '/SubhadipResume2025.pdf',
+  resume: '/SubhadipPatraDEVResumepdf.pdf',
   social: {
     github: 'https://github.com/subhadippatraa',
     linkedin: 'https://www.linkedin.com/in/subhadippatraa',
