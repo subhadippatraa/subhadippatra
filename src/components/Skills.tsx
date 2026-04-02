@@ -22,48 +22,44 @@ const skillCategories: SkillCategory[] = [
     name: 'Languages',
     description: 'Core programming languages and query languages',
     skills: [
-      { name: 'Java', proficiency: 'Advanced', level: 85 },
-      { name: 'TypeScript', proficiency: 'Advanced', level: 88 },
-      { name: 'JavaScript', proficiency: 'Advanced', level: 90 },
-      { name: 'Python', proficiency: 'Intermediate', level: 70 },
-      { name: 'SQL', proficiency: 'Advanced', level: 82 },
-      { name: 'C', proficiency: 'Intermediate', level: 65 },
-      { name: 'C #', proficiency: 'Intermediate', level: 75 }
+      { name: 'C#', proficiency: 'Expert', level: 90 },
+      { name: 'Java', proficiency: 'Expert', level: 90 },
+      { name: 'C++', proficiency: 'Advanced', level: 80 },
+      { name: 'SQL', proficiency: 'Expert', level: 90 },
+      { name: 'JavaScript', proficiency: 'Advanced', level: 85 }
     ]
   },
   {
     name: 'Frameworks & Libraries',
     description: 'Frontend and backend frameworks used in projects',
     skills: [
-      { name: 'React', proficiency: 'Advanced', level: 90 },
-      { name: '.Net Core', proficiency: 'Advanced', level: 85 },
-      { name: 'Tailwind CSS', proficiency: 'Advanced', level: 88 },
-      { name: 'Framer Motion', proficiency: 'Advanced', level: 80 },
-      { name: 'LangChain', proficiency: 'Intermediate', level: 70 },
-      { name: 'Spring Boot', proficiency: 'Intermediate', level: 70 },
-      { name: 'Express.js', proficiency: 'Advanced', level: 80 }
+      { name: '.NET Core', proficiency: 'Expert', level: 90 },
+      { name: 'Spring Boot', proficiency: 'Expert', level: 90 },
+      { name: 'React', proficiency: 'Advanced', level: 85 },
+      { name: 'Entity Framework', proficiency: 'Advanced', level: 85 },
+      { name: 'Hibernate', proficiency: 'Advanced', level: 80 }
     ]
   },
   {
     name: 'Backend & Databases',
     description: 'Server-side development and data storage',
     skills: [
-      { name: 'Node.js', proficiency: 'Advanced', level: 82 },
-      { name: 'REST APIs', proficiency: 'Advanced', level: 84 },
-      { name: 'MySQL', proficiency: 'Advanced', level: 80 },
-      { name: 'PostgreSQL', proficiency: 'Intermediate', level: 68 },
-      { name: 'MongoDB', proficiency: 'Intermediate', level: 72 }
+      { name: 'SQL Server', proficiency: 'Expert', level: 90 },
+      { name: 'PostgreSQL', proficiency: 'Advanced', level: 85 },
+      { name: 'MongoDB', proficiency: 'Intermediate', level: 75 },
+      { name: 'Redis', proficiency: 'Advanced', level: 85 },
+      { name: 'Apache Kafka', proficiency: 'Advanced', level: 80 }
     ]
   },
   {
     name: 'Tools & Platforms',
     description: 'Productivity, collaboration, and deployment tools',
     skills: [
-      { name: 'Git & GitHub', proficiency: 'Expert', level: 92 },
-      { name: 'Docker', proficiency: 'Intermediate', level: 65 },
-      { name: 'Jira', proficiency: 'Intermediate', level: 70 },
-      { name: 'Postman', proficiency: 'Advanced', level: 80 },
-      { name: 'Vercel/Netlify', proficiency: 'Advanced', level: 82 }
+      { name: 'Docker', proficiency: 'Advanced', level: 85 },
+      { name: 'Git & GitHub', proficiency: 'Expert', level: 95 },
+      { name: 'Azure DevOps', proficiency: 'Advanced', level: 80 },
+      { name: 'Swagger', proficiency: 'Expert', level: 90 },
+      { name: 'Postman', proficiency: 'Expert', level: 90 }
     ]
   }
 ];
@@ -90,11 +86,12 @@ const skillIconMap: Record<string, string> = {
   'SQL': 'mysql',
   'C': 'c',
   'C#': 'csharp',
+  'C++': 'cplusplus',
   'React': 'react',
   'Next.js': 'nextdotjs',
   'Tailwind CSS': 'tailwindcss',
   'Framer Motion': 'framer',
-  '.Net Core': 'dotnet',
+  '.NET Core': 'dotnet',
   'Spring Boot': 'springboot',
   'Express.js': 'express',
   'Node.js': 'nodedotjs',
@@ -102,10 +99,17 @@ const skillIconMap: Record<string, string> = {
   'MySQL': 'mysql',
   'PostgreSQL': 'postgresql',
   'MongoDB': 'mongodb',
+  'SQL Server': 'microsoftsqlserver',
+  'Redis': 'redis',
+  'Apache Kafka': 'apachekafka',
+  'Entity Framework': 'dotnet',
+  'Hibernate': 'hibernate',
   'Git & GitHub': 'github',
   'Docker': 'docker',
   'Jira': 'jira',
   'Postman': 'postman',
+  'Azure DevOps': 'azuredevops',
+  'Swagger': 'swagger',
   'Vercel/Netlify': 'vercel'
 };
 
