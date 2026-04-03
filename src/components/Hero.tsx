@@ -103,6 +103,15 @@ function ScrollIndicator() {
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
 
   // Multi-speed parallax layers
@@ -118,24 +127,24 @@ export function Hero() {
     <section ref={sectionRef} id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-transparent">
       {/* Parallax background glow */}
       <motion.div
-        style={{ y: bgGlowY, willChange: 'transform' }}
+        style={{ y: isMobile ? 0 : bgGlowY, willChange: 'transform' }}
         className="absolute left-0 right-0 top-0 -z-20 m-auto h-[310px] w-[310px] rounded-full bg-blue-500 opacity-[0.08] blur-[120px] transform-gpu"
       />
 
       {/* Parallax Background Geometrics — pushed to edges to prevent overlapping content */}
       <motion.div
         aria-hidden="true"
-        style={{ y: shape1Y }}
+        style={{ y: isMobile ? 0 : shape1Y }}
         className="absolute top-1/4 left-[5%] w-24 h-24 border-2 border-blue-500/5 rounded-2xl dark:border-teal-400/5 transform-gpu"
       />
       <motion.div
         aria-hidden="true"
-        style={{ y: shape2Y }}
+        style={{ y: isMobile ? 0 : shape2Y }}
         className="absolute bottom-1/3 right-[5%] w-20 h-20 bg-gradient-to-tr from-pink-500/5 to-orange-400/5 rounded-full blur-[2px] transform-gpu"
       />
       <motion.div
         aria-hidden="true"
-        style={{ y: shape3Y }}
+        style={{ y: isMobile ? 0 : shape3Y }}
         className="absolute top-[15%] right-[10%] transform-gpu"
       >
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="stroke-indigo-500/[0.05] dark:stroke-indigo-400/[0.05]" strokeWidth="1.5">
@@ -145,7 +154,7 @@ export function Hero() {
 
       {/* Content layer — drifts up + fades on scroll */}
       <motion.div
-        style={{ y: contentY, opacity: contentOpacity, willChange: 'transform, opacity' }}
+        style={{ y: isMobile ? 0 : contentY, opacity: isMobile ? 1 : contentOpacity, willChange: 'transform, opacity' }}
         className="relative z-20 mx-auto max-w-6xl px-4 pt-4 pb-32 text-center transform-gpu"
       >
         <motion.div
