@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useMotionTemplate, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion';
-import { MouseEvent, useRef } from 'react';
+import { MouseEvent, useRef, useState, useEffect } from 'react';
 import { GitHubIcon } from './icons/Social';
 
 function SpotlightCard({ children, className = "" }: { children: React.ReactNode, className?: string }) {
@@ -81,23 +81,47 @@ function ParallaxProjectImage({ src, alt }: { src: string, alt: string }) {
     offset: ["start end", "end start"]
   });
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Parallax translation: slide from top to bottom slightly as you scroll past
   const y = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
 
   return (
     <div ref={ref} className="absolute inset-0 overflow-hidden bg-gray-100 dark:bg-gray-900 pointer-events-none">
-      <motion.div
-        style={{ y, top: "-15%", height: "130%" }}
-        className="absolute w-full origin-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/spotlight:scale-[1.03]"
-      >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover"
-        />
-      </motion.div>
+      {isMobile ? (
+        <div
+          style={{ top: "-15%", height: "130%" }}
+          className="absolute w-full origin-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/spotlight:scale-[1.03]"
+        >
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+          />
+        </div>
+      ) : (
+        <motion.div
+          style={{ y, top: "-15%", height: "130%" }}
+          className="absolute w-full origin-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/spotlight:scale-[1.03]"
+        >
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+          />
+        </motion.div>
+      )}
     </div>
   );
 }
@@ -137,6 +161,14 @@ const projects = [
 
 export function Projects() {
   const containerRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -150,12 +182,21 @@ export function Projects() {
 
       {/* Ghost Typography Watermark with True Parallax Physics */}
       <div className="absolute top-0 inset-x-0 flex items-start justify-center pointer-events-none overflow-hidden z-0">
-        <motion.span
-          style={{ y, willChange: 'transform' }}
-          className="text-[14vw] leading-none pt-4 font-black tracking-tighter text-gray-900/[0.04] dark:text-white/[0.03] whitespace-nowrap select-none origin-top transform-gpu"
-        >
-          PROJECTS
-        </motion.span>
+        {isMobile ? (
+          <span
+            style={{ transform: 'translateY(10%)' }}
+            className="text-[14vw] leading-none pt-4 font-black tracking-tighter text-gray-900/[0.04] dark:text-white/[0.03] whitespace-nowrap select-none origin-top"
+          >
+            PROJECTS
+          </span>
+        ) : (
+          <motion.span
+            style={{ y, willChange: 'transform' }}
+            className="text-[14vw] leading-none pt-4 font-black tracking-tighter text-gray-900/[0.04] dark:text-white/[0.03] whitespace-nowrap select-none origin-top transform-gpu"
+          >
+            PROJECTS
+          </motion.span>
+        )}
       </div>
 
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px]"></div>
