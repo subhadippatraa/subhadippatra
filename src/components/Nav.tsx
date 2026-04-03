@@ -94,19 +94,7 @@ export function Nav() {
     }
   }, [pathname]);
 
-  const handleNavClick = (href: string) => {
-    if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        const id = href.substring(1);
-        setActiveSection(id);
-        if (typeof window !== 'undefined') {
-          const newUrl = `${window.location.pathname}${href}`;
-          window.history.replaceState(null, '', newUrl);
-        }
-      }
-    }
+  const handleNavClick = () => {
     setOpen(false);
   };
 
@@ -150,8 +138,9 @@ export function Nav() {
                   />
                 )}
                 {l.href.startsWith('#') ? (
-                  <button
-                    onClick={() => handleNavClick(l.href)}
+                  <a
+                    href={l.href}
+                    onClick={handleNavClick}
                     className={`relative z-10 px-3 py-1.5 rounded-full text-[13px] transition-colors duration-200 ${
                       active
                         ? 'text-gray-900 dark:text-white font-semibold'
@@ -159,7 +148,7 @@ export function Nav() {
                     }`}
                   >
                     {l.label}
-                  </button>
+                  </a>
                 ) : (
                   <Link
                     href={l.href}
@@ -216,17 +205,19 @@ export function Nav() {
                   transition={{ delay: i * 0.05 }}
                 >
                   {l.href.startsWith('#') ? (
-                    <button
-                      onClick={() => handleNavClick(l.href)}
-                      className={`w-full px-3 py-2.5 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-left transition-colors ${
+                    <a
+                      href={l.href}
+                      onClick={handleNavClick}
+                      className={`block w-full px-3 py-2.5 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-800 text-left transition-colors ${
                         isActive(l.href) ? 'text-primary font-semibold bg-blue-50 dark:bg-blue-900/10' : 'text-gray-700 dark:text-gray-300'
                       }`}
                     >
                       {l.label}
-                    </button>
+                    </a>
                   ) : (
                     <Link
                       href={l.href}
+                      onClick={handleNavClick}
                       className={`block px-3 py-2.5 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${
                         isActive(l.href) ? 'text-primary font-semibold bg-blue-50 dark:bg-blue-900/10' : 'text-gray-700 dark:text-gray-300'
                       }`}
