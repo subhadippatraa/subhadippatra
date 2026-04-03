@@ -5,6 +5,11 @@ import Lenis from 'lenis';
 
 export function SmoothScroll() {
   useEffect(() => {
+    // Disable Lenis on simple touch devices for performance
+    if (window.matchMedia("(pointer: coarse)").matches || window.matchMedia("(max-width: 768px)").matches) {
+      return;
+    }
+
     // Initialize Lenis for buttery-smooth inertial scrolling
     const lenis = new Lenis({
       duration: 1.2,
@@ -13,8 +18,9 @@ export function SmoothScroll() {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      // touchMultiplier is removed because we disable Lenis on touch
     });
+    (window as any).lenis = lenis;
 
     // Request animation frame loop
     let rafId: number;
@@ -24,37 +30,10 @@ export function SmoothScroll() {
     }
     rafId = requestAnimationFrame(raf);
 
-    // Anchor link handling
-    const onClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement | null;
-      if (!target) return;
-      const anchor = target.closest('a') as HTMLAnchorElement | null;
-      if (!anchor) return;
-
-      const href = anchor.getAttribute('href') || '';
-      if (!href || !href.startsWith('#')) return;
-
-      e.preventDefault();
-      const id = href.slice(1);
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      // Lenis scrollTo
-      lenis.scrollTo(el, { offset: -50, duration: 1.2 });
-      
-      if (history.pushState) {
-        history.pushState(null, '', href);
-      } else {
-        location.hash = href;
-      }
-    };
-
-    document.addEventListener('click', onClick);
-
     return () => {
-      document.removeEventListener('click', onClick);
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      delete (window as any).lenis;
     };
   }, []);
 

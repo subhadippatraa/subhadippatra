@@ -19,15 +19,15 @@ function SpotlightCard({ children, className = "" }: { children: React.ReactNode
     const { left, top, width, height } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
-    
+
     // Normalize bounds from -1 to 1 for tilt
     const xPct = (clientX - left) / width - 0.5;
     const yPct = (clientY - top) / height - 0.5;
-    
+
     tiltX.set(yPct * -10); // Rotate up/down max 10deg
     tiltY.set(xPct * 10);  // Rotate left/right max 10deg
   }
-  
+
   function handleMouseLeave() {
     tiltX.set(0);
     tiltY.set(0);
@@ -80,14 +80,14 @@ function ParallaxProjectImage({ src, alt }: { src: string, alt: string }) {
     target: ref,
     offset: ["start end", "end start"]
   });
-  
+
   // Parallax translation: slide from top to bottom slightly as you scroll past
   const y = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
 
   return (
     <div ref={ref} className="absolute inset-0 overflow-hidden bg-gray-100 dark:bg-gray-900 pointer-events-none">
-      <motion.div 
-        style={{ y, top: "-15%", height: "130%" }} 
+      <motion.div
+        style={{ y, top: "-15%", height: "130%" }}
         className="absolute w-full origin-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/spotlight:scale-[1.03]"
       >
         <Image
@@ -137,12 +137,12 @@ const projects = [
 
 export function Projects() {
   const containerRef = useRef<HTMLElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
-  
+
   const y = useTransform(scrollYProgress, [0, 1], ["10%", "50%"]);
 
   return (
@@ -150,7 +150,7 @@ export function Projects() {
 
       {/* Ghost Typography Watermark with True Parallax Physics */}
       <div className="absolute top-0 inset-x-0 flex items-start justify-center pointer-events-none overflow-hidden z-0">
-        <motion.span 
+        <motion.span
           style={{ y, willChange: 'transform' }}
           className="text-[14vw] leading-none pt-4 font-black tracking-tighter text-gray-900/[0.04] dark:text-white/[0.03] whitespace-nowrap select-none origin-top transform-gpu"
         >
@@ -190,7 +190,7 @@ export function Projects() {
                 <div className="relative w-full aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-900 pointer-events-none">
                   <ParallaxProjectImage src={project.image} alt={project.title} />
                   <div className="absolute inset-0 bg-black/10 dark:bg-black/30 transition-colors group-hover/spotlight:bg-transparent z-10" />
-                  
+
                   {/* Featured badge */}
                   {project.featured && (
                     <div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 px-2.5 py-1 rounded-md text-xs font-semibold shadow-sm overflow-hidden group-hover/spotlight:-translate-y-1 transition-transform duration-500">
@@ -233,14 +233,14 @@ export function Projects() {
                       <GitHubIcon width={16} height={16} />
                       Source
                     </Link>
-                    <Link
+                    {/* <Link
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex flex-1 items-center justify-center px-3 py-2 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-900 transition-all duration-300 hover:scale-[1.03] active:scale-95 hover:shadow-[0_0_30px_rgba(15,23,42,0.1)] dark:hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
                     >
                       Live Demo
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </SpotlightCard>

@@ -98,7 +98,11 @@ export function Nav() {
     if (href.startsWith('#')) {
       const element = document.querySelector(href);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if ((window as any).lenis) {
+          (window as any).lenis.scrollTo(element, { offset: -50, duration: 1.2 });
+        } else {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
         const id = href.substring(1);
         setActiveSection(id);
         if (typeof window !== 'undefined') {
