@@ -79,3 +79,107 @@ section[id] {
   overflow: hidden;
 }
 
+/* Hardware Accelerated Animations for Performance */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 50s linear infinite;
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-30px); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+}
+
+@keyframes spin-reverse-slow {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(-180deg) scale(1.2); }
+  100% { transform: rotate(-360deg) scale(1); }
+}
+.animate-spin-reverse-slow {
+  animation: spin-reverse-slow 15s ease-in-out infinite;
+}
+
+@keyframes fill-bar {
+  from { width: 0; }
+  to { width: var(--target-width); }
+}
+.animate-fill-bar {
+  animation: fill-bar 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Shimmer sweep for skill progress bars */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+.animate-shimmer {
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+
+/* ─── Lenis Smooth Scroll Overrides ─── */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ─── Text Selection ─── */
+::selection {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: inherit;
+}
+.dark ::selection {
+  background-color: rgba(45, 212, 191, 0.2);
+}
+
+/* ─── Focus Visible Ring ─── */
+:focus-visible {
+  outline: 2px solid rgb(59, 130, 246);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.dark :focus-visible {
+  outline-color: rgb(45, 212, 191);
+}
+
+/* ─── Accessibility: Respect Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-marquee,
+  .animate-spin-slow,
+  .animate-bounce-slow,
+  .animate-spin-reverse-slow,
+  .animate-shimmer,
+  .animate-fill-bar {
+    animation: none !important;
+  }
+}
