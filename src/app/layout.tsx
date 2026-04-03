@@ -4,6 +4,10 @@ import { SITE } from '@/config/site';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { SmoothScroll } from '@/components/SmoothScroll';
+import { CustomCursor } from '@/components/CustomCursor';
+import { ScrollProgress } from '@/components/ScrollProgress';
+import { Preloader } from '@/components/Preloader';
+import { BackToTop } from '@/components/BackToTop';
 import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
@@ -28,14 +32,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: ThemeInit }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-gray-50 dark:bg-[#0A0A0A] text-gray-900 dark:text-gray-100 flex flex-col min-h-screen`}>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] bg-primary text-white px-4 py-2 rounded-lg">Skip to content</a>
+        <Preloader />
+        <ScrollProgress />
+        <CustomCursor />
         <Nav />
         <SmoothScroll />
-        <main id="main">{children}</main>
+        <main id="main" className="flex-grow z-10 bg-white dark:bg-[#0A0A0A] relative shadow-[0_20px_50px_rgba(0,0,0,0.5)]">{children}</main>
         <Footer />
+        <BackToTop />
       </body>
     </html>
   );
 }
-

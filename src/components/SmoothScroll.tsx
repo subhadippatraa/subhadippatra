@@ -1,28 +1,47 @@
 'use client';
 
 import { useEffect } from 'react';
+import Lenis from 'lenis';
 
 export function SmoothScroll() {
   useEffect(() => {
+    // Initialize Lenis for buttery-smooth inertial scrolling
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+    });
+
+    // Request animation frame loop
+    let rafId: number;
+    function raf(time: number) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+
+    // Anchor link handling
     const onClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
-      // Find closest anchor
       const anchor = target.closest('a') as HTMLAnchorElement | null;
       if (!anchor) return;
 
-      // Only handle same-page hash links
       const href = anchor.getAttribute('href') || '';
       if (!href || !href.startsWith('#')) return;
 
+      e.preventDefault();
       const id = href.slice(1);
       const el = document.getElementById(id);
       if (!el) return;
 
-      e.preventDefault();
-      // Smooth scroll with header-safe offset via CSS scroll-margin-top
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Update hash without full jump
+      // Lenis scrollTo
+      lenis.scrollTo(el, { offset: -50, duration: 1.2 });
+      
       if (history.pushState) {
         history.pushState(null, '', href);
       } else {
@@ -31,7 +50,12 @@ export function SmoothScroll() {
     };
 
     document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click', onClick);
+
+    return () => {
+      document.removeEventListener('click', onClick);
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
   }, []);
 
   return null;
